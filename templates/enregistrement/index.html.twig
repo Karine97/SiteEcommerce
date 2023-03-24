@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Inscription</h1>
+<!-- Maintenant je veux afficher mon formulaire d'incription qui est lié à 
+     ma class (entité) User. Je vais le générer grâce à la console : synfony console make:form
+     en donnant un nom à la class du formulaire (form) et faire le lien avec l'entité User-->
+ <!-- on utilise la methode twig symfony form et 
+     entre parenthèse je lui passe ma variable form.
+     ce formulaire sera généré par notre class EnregistrementType.php-->
+    {{ form(monform) }}
+     
+{% endblock%}
