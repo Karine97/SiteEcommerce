@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - NewLife {% endblock %}
+
+{% block content %}
+<h1>Mon compte</h1>
+<!--Je veux afficher le prénom de l'utilisateur connecté à son compte -->
+Bienvenue {{ (app.user.prenom) }} dans votre espace personnel.<br>
+ Vous pouvez gérer toutes vos informations personnelles.
+
+<!--Je veux afficher le prénom de l'utilisateur connecté à son compte--> 
+<!-- {#{{ dump(app.user.prenom) }}#} dump est comme le vardump en php qui va nous permettre d'exploser la variable et de l'explorer-->
+                <!--On va explorer la variable app. Cette variable app va nous permettre d'acceder à l'utilisateur (app.user), à la request,
+                aux cessions qui sont en cours.
+                Si on met app.user en laissant le dump dans le navigateur on a un accès à l'objet user avec toutes les propriétés 
+                définit dans l'entité User 
+                 Donc si on veut afficher le prénom de l'utilisateur il suffit de rajouter .prenom-->
+
+<hr> 
+<!--Lien du chemin pour revenir sur la page qui permet à l'utilisateur de modifier son mot de passe -->
+<a href="{{ path('app_account_password') }}">Modifier mon mot de passe</a><br/>               
+{% endblock %}

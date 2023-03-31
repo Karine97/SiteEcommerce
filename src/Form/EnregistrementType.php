@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class EnregistrementType extends AbstractType
 {
@@ -39,32 +40,42 @@ class EnregistrementType extends AbstractType
         $builder // reprend les propriétés de l'entité User
             ->add('prenom', TextType::class,[
                 'label' => 'Votre prénom',
-                'attr' => [
-                    'placeholder' => 'Merci de saisir votre prénom'
-                ]
+                'constraints' => new Length([// On peut rajouter des contraintes à notre formulaire, en mettant une longueur de chaîne de caractères 
+                    'min' => 2, // comprise entre une valeur minimale et une valeur maximale (par exemple le prénom, nom, email)
+                    'max' => 30
+                ]), 
             ])
 
             ->add('nom', TextType::class,[
                 'label' => 'Votre nom',
-                'attr' => [
-                    'placeholder' => 'Merci de saisir votre nom'
-                ]
+                'constraints' => new Length([
+                    'min' => 2, 
+                    'max' => 30
+                ]),
             ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Votre adresse email',
-                'attr' => [
-                    'placeholder' => 'Merci de saisir votre adresse email'
-                ]
+                'constraints' => new Length([
+                    'min' => 2, 
+                    'max' => 50
+                ]),
             ])
-            ->add('password', RepeatedType::class, [ // RepeatedType permet de dire à symfony que j'ai besoin
-                // pour une même propriété de généré 2 champs différents qui doivent le même contenu pour cela il faut rajouter :
+            ->add('password', RepeatedType::class, [ // RepeatedType permet de répéter le mdp et 
+                // pour une même propriété de généré 2 champs différents qui doivent avoir le même contenu (mdp) pour cela il faut rajouter :
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe et la confirmation doivent être identique', 
                 'label' => 'Votre password',
                 'required' => true, // Pour dire que ce champs est obligatoire
-                'first_options' => ['label' => 'Mot de passe'], 
-                'second_options' => ['label' => 'Confirmez votre mot de passe']
+                'first_options' => [
+                    'label' => 'Mot de passe',
+                'attr' => [
+                    'placeholder' => 'Saisissez votre mot de passe.'
+                ]
+            ], 
+                'second_options' => [
+                    'label' => 'Confirmez votre mot de passe',
+            ]
             ])
            
             ->add('submit', SubmitType::class, [

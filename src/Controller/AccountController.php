@@ -6,12 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccueilController extends AbstractController
+class AccountController extends AbstractController // controller dédié à tout l'espace membre
 {
-    #[Route('/', name: 'app_accueil')] // Annotation: Route va permettre d'injecter des routes
+    #[Route('/compte', name: 'app_account')]
     public function index(): Response
     {
-        return $this->render('accueil/index.html.twig');// retourne notre vue twig
-        
+        return $this->render('account/index.html.twig', [
+           
+        ]);
     }
 }
