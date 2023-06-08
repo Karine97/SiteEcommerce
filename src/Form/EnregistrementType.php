@@ -5,17 +5,19 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Validator\Constraints\Length;
 
 class EnregistrementType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     // le rôle de cette fonction "buildForm" est de créer un formulaire et on lui demande d'ajouter des propriétés. 
     //->add('roles')On l'enlève la proriété (roles) car on ne souhaite pas que l'utilisateur choisisse son rôle.
 
@@ -44,7 +46,7 @@ class EnregistrementType extends AbstractType
                     'min' => 2, // comprise entre une valeur minimale et une valeur maximale (par exemple le prénom, nom, email)
                     'max' => 30
                 ]), 
-            ])
+        ])
 
             ->add('nom', TextType::class,[
                 'label' => 'Votre nom',
@@ -52,7 +54,7 @@ class EnregistrementType extends AbstractType
                     'min' => 2, 
                     'max' => 30
                 ]),
-            ])
+        ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Votre adresse email',
@@ -60,7 +62,7 @@ class EnregistrementType extends AbstractType
                     'min' => 2, 
                     'max' => 50
                 ]),
-            ])
+        ])
             ->add('password', RepeatedType::class, [ // RepeatedType permet de répéter le mdp et 
                 // pour une même propriété de généré 2 champs différents qui doivent avoir le même contenu (mdp) pour cela il faut rajouter :
                 'type' => PasswordType::class,
@@ -75,16 +77,28 @@ class EnregistrementType extends AbstractType
             ], 
                 'second_options' => [
                     'label' => 'Confirmez votre mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Confirmez votre mot de passe.'
+                ]
             ]
-            ])
+        ])
+            ->add('conditions', CheckboxType::class, [
+            'label' => 'J ai lu et accepte la politique de confidentialité',
+            'mapped' => false,
+            'constraints' => [
+                new IsTrue([
+                    'message' => 'You should agree to our terms.'
+                    
+                ]),
+            ],
+        ])
            
             ->add('submit', SubmitType::class, [
                 'label' => 'Sinscrire'
-            ])
-        ;
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,

@@ -3,7 +3,8 @@
 {% block title %}Se connecter - NewLife{% endblock %}
 
 {% block content %}
-<form method="post">
+    <div class="block-small">
+    <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -23,6 +24,15 @@
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
+     <!-- "hr" Pour faire une marge avec un trait entre le champs mdp et le bouton se connecter entre -->
+    <button class="btn btn-lg btn-info btn-block mt-3"  type="submit"> <!-- je rajoute un btn-sm pour réduire la taille du bouton "se connecter" -->
+        Se connecter
+    </button>
+    <hr>
+    <p class="text-center">Ou souhaitez-vous <a href="{{ path('app_enregistrement') }}"> Créer un compte</a> ?</p>
+</form>
+    </div>
+{% endblock %}
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -34,10 +44,3 @@
             </label>
         </div>
     #}
-
-    <hr> <!-- "hr" Pour faire une marge avec un trait entre le champs mdp et le bouton se connecter entre -->
-    <button class="btn btn-lg btn-primary btn-sm" type="submit"> <!-- je rajoute un btn-sm pour réduire la taille du bouton "se connecter" -->
-        Se connecter
-    </button>
-</form>
-{% endblock %}

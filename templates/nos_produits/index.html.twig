@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits - NewLife{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+        <h3>Filtrer</h3>
+     {#pour afficher ce filtre on va créer une class qu va nous permettre de représenter 
+    notre recherche sous forme d'objet. On va donc créer une class à la main dans le dossier scr 
+    dans lequel on mettre notre class et dans le dossier class un fichier php Search qui 
+    sera une classe qui va représenter la recherche effectuée de nos utilisateurs sous forme d'objet. Cela
+    va nous permettre de créer un formulaire qui sera liée à la classe 'Search' (objet Search) et plus facile à manipuler 
+    sous forme d'objet #}
+    
+    {{ form(form)}}
+    
+    </div>
+    <div class="col-md-9"> 
+    <h3>Nos produits</h3>
+{#pour afficher les produits coté front il faut faire une boucle avec for (pour foreach) 
+en itialisant une variable produit et pour chaque produit que l'on a dans produits_tous 
+on les affiche  et on ferme avec (endfor) #}
+    <div class="row product-container">
+    {% for produit in produits_tous %} 
+       {# On fait un test d'affichage avec 'dump' {{ dump(produit) }} #}
+        {# On va utiliser un mecanisque bootstrap avec des div class=row pour afficher nos produits #}
+           <div class="col-md-4">
+                {% include 'nos_produits/single_produit.html.twig' %}
+            </div>
+        {% endfor %}
+        </div> 
+    </div>
+ </div>
+{% endblock %}

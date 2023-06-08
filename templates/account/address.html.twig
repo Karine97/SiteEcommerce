@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes adresses - NewLife {% endblock %}
+
+{% block content %}
+    <a href="{{ path('app_account_address_add') }}" class="btn btn-info btn-sm float-right">Ajouter une adresse</a>
+    <h1>Mes adresses</h1>
+    Gérez toutes vos adresses.<br/>
+    <a href="{{ path('app_account') }}">Retour</a>
+    <hr> 
+<!-- Pour accéder à l'utilisateur on va récuper dans base html.twig la variable app.user de twig
+dans lequel sont stockés des informations sur les requêtes, session et les utilisateurs 
+Pour afficher ce qu'il y a dans l'objet utilisateur {#{ dump(app.user) }#} -->
+
+    {% if app.user.addresses|length == 0 %}     <!-- la propriété length permet de compter.Donc si app.user.adresses est égal à 0 alors je souhaite afficher un message à l'utilisateur-->
+        <p class="text-center">
+            Vous n'avez pas encore ajouté d'adresses dans votre compte client. Pour en ajouter une, veuillez <a href="{{ path('app_account_address_add') }}">Cliquer ici</a>. 
+        </p>
+    {% else %}
+        <div class="row">
+            {% for address in app.user.addresses %} <!-- On va chercher à boucler sur les adresses de l'utilisateur pour afficher une card à chaque fois 
+            que l'utisateur à une adresse. Pour cela, on utilise for et on initialise address pour tous ce qu'il a dans app.user.adresses,tu rentres dans cette 
+            boucle et tu vas m'afficher la card avec l'adresse de mon utilisateur -->
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ address.intitule }}</h5>
+                            <p class="card-text">
+                            {{ address.adresse }},<br/>
+                            {{ address.postal }} - {{ address.ville }} - {{ address.pays }}
+                            </p>
+                        <a href="{{ path('app_account_address_edit', { 'id' : address.id }) }}">Modifier</a> | <a href="{{ path('app_account_address_delete', { 'id' : address.id }) }}">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}                                           
+{% endblock %}                              

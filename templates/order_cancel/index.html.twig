@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur de paiement - NewLife{% endblock %}
+
+{% block content %}
+       <h2>Erreur de paiement</h2>
+    <p>
+        Bonjour {{ order.utilisateur.prenom}} {{ order.utilisateur.nom}},<br/><br/>
+        Il semblerait que le paiement est échoué pour votre commande n°{{ order.reference }}.<br/>
+        Une confirmation d'erreur vient de vous être envoyée par email à l'adresse {{ order.utilisateur.email }}.
+    </p>
+    <a href="{{ path('app_order') }}" class="btn btn-success">Réessayer le paiement</a>.
+{% endblock %}

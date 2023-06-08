@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de commande - NewLife{% endblock %}
+
+{% block content %}
+    <h2>Confirmation de commande</h2>
+    <p>
+        Bonjour {{ order.utilisateur.prenom}} {{ order.utilisateur.nom}},<br/><br/>
+        Nous vous remercions pour votre commande n°{{ order.reference }}.<br/>
+        Une confirmation vient de vous être envoyée par email à l'adresse {{ order.utilisateur.email }}.
+        <hr>
+        Votre commande sera livrée par {{ order.transportNom }} à l'adresse suivante : <br/>
+        {{ order.livraison|raw }}
+        <hr>
+        Pour suivre votre commande, rendez-vous dans votre <a href="{{ path('app_account_order') }}">compte</a>.
+    </p>
+    
+{% endblock %}

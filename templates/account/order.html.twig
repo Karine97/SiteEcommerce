@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes - NewLife {% endblock %}
+
+{% block content %}
+    <h1>Mes commandes</h1>
+    Dans cet espace, vous pouvez gérer toutes vos commandes .<br/>
+    <a href="{{ path('app_account') }}">Retour</a>
+    
+<!-- Pour accéder à l'utilisateur on va récuper dans base html.twig la variable app.user de twig
+dans lequel sont stockés des informations sur les requêtes, session et les utilisateurs 
+Pour afficher ce qu'il y a dans l'objet utilisateur {#{ dump(app.user) }#} -->
+
+    {% if orders|length == 0 %}     <!-- la propriété length permet de compter.Si order est égal à 1 alors je souhaite afficher la commande-->
+        <hr> 
+        <p class="text-center">
+            Vous n'avez pas encore passé de commandes. 
+        </p>
+    {% else %}
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th scope="col">Référence</th>
+                <th scope="col">Passée le</th>
+                <th scope="col">Produit(s)</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody> 
+            {% for order in orders %} <!-- On va chercher à boucler sur les commandes de l'utilisateur pour afficher les commandes. Pour cela, on utilise for et on initialise order pour tous ce qu'il a dans orders.
+                                        //Tu rentres dans cette boucle et tu vas m'afficher les commandes de mon utilisateur -->
+              {#{ dump(order) }#}
+                <tr>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.createAt|date('d/m/y') }}</td>
+                    <td>{{ order.orderDetails|length }}</td>
+                    <td>{{ ((order.transportPrix + order.getTotal) / 100)|number_format(2, ',', '.') }} €</td> <!-- Ici on va se servir de la fonction que l'on a crée dans l'entité Order public function getTotal()-->
+                    <td class="text-right"><a href="{{ path('app_account_order_show', {'reference' : order.reference }) }}">Voir ma commande<a/></td>
+                <tr>
+            {% endfor %}
+            </tbody>
+        </table>
+           
+            
+    {% endif %}                                           
+{% endblock %}   

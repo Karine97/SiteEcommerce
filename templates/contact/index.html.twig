@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter - NewLife{% endblock %}
+
+{% block content %}
+    <h2>Nous contacter</h2>
+    <p>N'hésitez pas à prendre contact avec notre équipe, nous vous répondrons dans les meilleurs délais.</p>
+    <div class="row">
+        <div class="col-md-8">{{ form(form) }}</div>
+        <div class="col-md-4">
+            <strong>NewLife</strong>
+            <hr>
+            Téléphone : 01.42.33.27.36<br/>
+            64 rue la boétie, 75008 Paris.<br/>
+            contact@newlife.fr<br/>
+        </div>
+    </div>
+{% endblock %}

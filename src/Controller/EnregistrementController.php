@@ -60,9 +60,10 @@ class EnregistrementController extends AbstractController
 
             // Pour enregistrer les informations dans la base de données il faut appeler doctrine
             // Et aller chercher le getManager et fige la data ($user) avec 'persist' puis excute la persistance 
-            // Tu prends la data(l'objet) que tu as figé et ut l'enregistre en base de données
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            // Tu prends la data(l'objet) que tu as figé et tu l'enregistre en base de données
+            $this->entityManager->persist($user); // persist prépare la donnée et la fige pour la création d'une entity pas nécessaire pour une maj de donnée
+            $this->entityManager->flush();// La méthode flush permet de s'assurer que toutes les modifications sont correctement enregistrées
+            // dans la base de données.
         }
 
             // Puis passer la variable form ($form) au template twig. 

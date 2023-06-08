@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une adresse - NewLife {% endblock %}
+
+{% block content %}
+    <h1>Gérer mes adresses</h1>
+    <a href="{{ path('app_account_address') }}">Retour</a>
+    <hr> 
+<!-- Je veux afficher un formulaire qui va me permettre d'ajouter une adresse.
+On fait appel à la méthode twig form {#{ form }#}et je passe à cette méthode ma varariable 'formulaire' qui est
+dans le AccountAdressController  -->
+{{ form_start(formulaire) }} <!-- En utilisant la methode {#{ form(formulaire) }#} cela ne permet pas de personaliser le formulaire
+                          {#{ form_start(formulaire) }#} et {#{ form_end(formulaire) }#} permet de manipuler nos inputs du formulaire un par un systéme de grille boostrap
+                          pour mettre en page en page le formulaire et aligner le contenu-->
+<div class="row">                          
+<div class="col-md-12">{{ form_row(formulaire.intitule) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.prenom) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.nom) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.societe) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.adresse) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.postal) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.ville) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.pays) }}</div>
+<div class="col-md-6">{{ form_row(formulaire.telephone) }}</div>
+</div>
+
+{{ form_end(formulaire) }}                                         
+{% endblock %}  

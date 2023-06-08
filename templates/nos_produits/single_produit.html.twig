@@ -1,0 +1,9 @@
+   <div class="product-item text-center"> 
+        <a href="{{ path('app_unproduit', {'slug': produit.slug }) }}"><img src="/uploads/{{ produit.illustration }}" alt="{{ produit.titre }}" class="img-fluid">
+        <h5>{{ produit.titre }}</h5> 
+        <span class="product-subtitle">{{ produit.SousTitre }}</span>
+        <span class="product-price">{{ (produit.prix /100)|number_format(2, ',', '.') }} €</span>
+                {# En créant l'entité produit j'ai choisi 'float' pour le prix et non décimal, du coup il faut
+                lui demander de divisé par 100 pour avoir un prix à avant la virgule #}
+            
+    </div>

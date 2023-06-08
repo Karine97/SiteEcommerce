@@ -8,7 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class ChangePasswordType extends AbstractType
 {
@@ -28,12 +30,39 @@ class ChangePasswordType extends AbstractType
                 'disabled' => true,
                 'label' => 'Nom'
             ])
-            ->add('password', PasswordType::class, [
+            ->add('old_password', PasswordType::class, [
                 'label' => 'Mot de passe actuel',
+                'mapped' => false, // idem que pour new_password
                 'attr' => [
-                    'palceholder' => 'Veuillez saisir votre mot de passe actuel'
+                    'placeholder' => 'Veuillez saisir votre mot de passe actuel'
                 ]
             ])
+            ->add('new_password', RepeatedType::class, [ // RepeatedType permet de répéter le mdp et 
+                // pour une même propriété de généré 2 champs différents qui doivent avoir le même contenu (mdp) pour cela il faut rajouter :
+                'type' => PasswordType::class,
+                // Je rajoute manuellement une nouvelle clef 'mapped' que l'on met 'false' pour lui dire de ne pas lier ce champs avec mon entity User   
+                // car le navigateur ne pourrais pas trouver le chemin dans entity User ou se trouve la propriété new_password
+                // car cette propriété n'existe pas
+                'mapped' => false,
+                'invalid_message' => 'Le mot de passe et la confirmation doivent être identique', 
+                'label' => 'Mon nouveau mot de passe',
+                'required' => true, // Pour dire que ce champs est obligatoire
+                'first_options' => [
+                    'label' => 'Nouveau mot de passe',
+                'attr' => [
+                    'placeholder' => 'Merci de saisir votre nouveau mot de passe.'
+                ]
+            ], 
+                'second_options' => [
+                    'label' => 'Confirmez votre mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Merci de confirmer votre nouveau mot de passe.'
+                ]
+            ]
+        ])
+            ->add('submit', SubmitType::class, [
+            'label' => 'Mettre à jour'
+        ])
         ;
     }
 

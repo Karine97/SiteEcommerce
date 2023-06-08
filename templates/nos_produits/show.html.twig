@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.titre }} - NewLife{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-5">
+         <img src="/uploads/{{ produit.illustration }}" alt="{{ produit.titre }}" class="img-fluid">   
+    </div>
+    <div class="col-md-7 my-auto">
+        <h3>{{ produit.titre }}</h3>
+        <p>{{ produit.SousTitre }}</p>
+        <span class="product-page-price">{{ (produit.prix /100)|number_format(2, ',', '.') }} €</span>
+        <hr>
+        <p>{{ produit.description }}</p>
+        <a href="{{ path('app_cart_add', {'id' : produit.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+    </div>
+</div>
+<hr>
+<h3>Nos meilleurs ventes</h3>
+
+        <div class="row">
+            {% for produit in produits_best %}
+                <div class="col-md-3">
+                    {% include 'nos_produits/single_produit.html.twig' %}
+                </div>
+            {% endfor %}
+        </div><!-- /.row -->
+{% endblock %}
