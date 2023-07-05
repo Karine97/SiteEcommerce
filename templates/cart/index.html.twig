@@ -20,6 +20,7 @@
   </thead>
   <tbody>
   {% set total = null %}
+  <div class="row product-container">
   {% for product in cart %}
   {#{{ dump(cart) }}#}
     <tr>
@@ -50,6 +51,7 @@
     </tr>
         {% set total = total + (product.product.prix * product.quantity) %}
     {% endfor %}
+    
     </tbody>
   </table>
   <div class="text-right mb-5">
@@ -61,5 +63,11 @@
     <hr>
     <p><b>Votre panier est vide.</b></p>
   {% endif %}
-
+ </div>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
 {% endblock %}

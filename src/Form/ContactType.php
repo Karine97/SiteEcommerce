@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -40,6 +41,17 @@ class ContactType extends AbstractType
                         'placeholder' => 'En quoi pouvons-nous vous aider ?'
                     ]
                 ])
+
+                ->add('newsletter', CheckboxType::class, [
+                        'label' => 'Je souhaite recevoir la newsletter de NewLife.',
+                        'required' => false,
+                 ])
+
+                 ->add('promotions', CheckboxType::class, [
+                    'label' => 'Je souhaite recevoir des offres promotionnelles.',
+                    'required' => false,
+             ])
+
                 ->add('submit', SubmitType::class, [
                     'label' => 'Envoyer',
                     'attr' => [

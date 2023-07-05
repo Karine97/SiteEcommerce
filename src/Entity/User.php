@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Invoice;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -41,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Order::class)]
     private Collection $orders;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Invoice::class)]
+    private Collection $invoices;
 
     public function __construct()
     {
@@ -207,4 +211,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoices(Invoice $invoices): self
+    {
+        if (!$this->invoices->contains($invoices)) {
+            $this->invoices->add($invoices);
+            $invoices->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoices(Invoice $invoices): self
+    {
+        if ($this->invoices->removeElement($invoices)) {
+            // set the owning side to null (unless already changed)
+            if ($invoices->getUtilisateur() === $this) {
+                $invoices->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }

@@ -17,16 +17,18 @@ class AccueilController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/', name: 'app_accueil')] // Annotation: Route va permettre d'injecter des routes
+    #[Route('/', name: 'app_accueil')] 
 
     public function index(): Response
     {
-        $produits = $this->entityManager->getRepository(Produit::class)->findByIsBest(1); // on passe en paramètre 1 car c'est un booleen
+        $produits = $this->entityManager->getRepository(Produit::class)->findByIsBest(1); 
+
         $headers = $this->entityManager->getRepository(Header::class)->findAll();
         //dd($produits);
-        return $this->render('accueil/index.html.twig', [
+        return $this->render('accueil/index.html.twig', [ 
            'produits_best' => $produits,
-           'headers' => $headers
-        ]);// retourne notre vue twig
+
+           'headers' => $headers 
+        ]);
     }
 }

@@ -38,7 +38,7 @@ class NosProduitsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Besoin maintenant de dire à Doctine est-ce que tu peux me récupérer mes produits en fonction de mes recherches et
             // pour faire cela on a besoin d'appeler son Repository de produit et le stocker dans la variable $produits et qu'il me retourne
-            // mes produits en fonction de ma rechercher. On utilise pas le findAll mains le findWithSearch et on passe en paramètre
+            // mes produits en fonction de ma rechercher. On utilise pas le findAll mais le findWithSearch et on passe en paramètre
             // l'objet recherche ($search). En revanche comme le findWithSearch n'existe pas, on va avoir besoin de créer une nouvelle
             // fonction dans le ProduitRepository.
             // dd($search);
