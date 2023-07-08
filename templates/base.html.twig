@@ -36,7 +36,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="{{ path('app_accueil') }}">
-        <img src="{{ asset('assets/img/logo_newlife_vert_120p.png') }}" alt="Logo"></a>  <!-- path permet de définir un lien et c'est twig qui va aller chercher le chemin de cette route-->
+        <img src="{{ asset('assets/img/logo_newlife_vert_60p.png') }}" alt="Logo"></a>  <!-- path permet de définir un lien et c'est twig qui va aller chercher le chemin de cette route-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,7 +46,7 @@
                     <a class="nav-link" href="{{ path('app_produits') }}">Nos produits</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Nous découvrir</a>
+                    <a class="nav-link" href="{{ path('app_nous_decouvrir') }}">Nous découvrir</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
@@ -117,13 +117,14 @@
 
     <!-- FOOTER -->
     <footer class="footer-custom">
+        <p>Notre site utilise uniquement les cookies essentiels et fonctionnels</p>
         <p>
             &copy; 2023 Société NewLife<br/> 
             <small>Vêtements d'occasion 100% Made in France<br/>
         </p>
         <p>
             <a href="#">CGU</a> - <a href="#">CGV</a><br/>
-            <a href="#">Qui sommes-nous ?</a> - <a href="{{ path('app_contact') }}">Nous contacter</a><br/>
+            <a href="{{ path('app_nous_decouvrir') }}">Qui sommes-nous ?</a> - <a href="{{ path('app_contact') }}">Nous contacter</a><br/>
         </p>
             <a href="#">Suivez-nous</a></small>
         </p>
@@ -131,6 +132,19 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+<script type="text/javascript">
+
+    function placeFooter() {
+        if( $(document.body).height() < $(window).height() ) {
+            $("footer").css({position: "fixed", bottom:"0px"});
+        } else {
+            $("footer").css({position: ""});
+        }
+    }
+
+    placeFooter();
+
+</script>
 </body>
 {% block script %}
 {% endblock %}
