@@ -6,13 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class NousDecouvrirController extends AbstractController
+class CGVController extends AbstractController
 {
-    #[Route('/decouvrir', name: 'app_nous_decouvrir')]
+    #[Route('/cgv', name: 'app_cgv')]
     public function index(): Response
     {
-        return $this->render('nous_decouvrir/index.html.twig', [
-            'nous_decouvrir' => 'NousDecouvrirController',
-        ]);
+        return $this->render('cgv/index.html.twig');
     }
 }
